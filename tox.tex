@@ -1,0 +1,178 @@
+\documentclass{mybeamer}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{ulem}
+
+% Set title, date, etc.
+\title{Tox}
+\subtitle{Messaging on the GNU Internet}
+\author{Simon Levermann (sonOfRa)}
+\institute{The Tox Team}
+\date{28/12/2013}
+
+
+\begin{document}
+    \setfooterempty
+    \begin{frame}
+    \titlepage
+    \end{frame} 
+
+    \setfooterfull{false}
+    \setcounter{framenumber}{0}
+    \begin{frame}
+    \frametitle{Outline}
+    \tableofcontents
+    \end{frame}
+
+    \setfooterfull{true}
+    \section{What is Tox?}
+    \begin{frame}
+        \frametitle{The what}
+        \begin{block}{What is Tox?}
+            \begin{itemize}
+                \item FOSS Chat and A/V-Chat protocol (GPLv3)
+                \item Decentralized architecture
+                \item Configuration free
+                \item Skype Replacement
+            \end{itemize}
+        \end{block}
+    \end{frame}
+
+    \section{Why are we doing it?}
+    \begin{frame}
+        \frametitle{The why}
+        \begin{block}{Why are we doing this?}
+            \begin{itemize}
+                \item We want a free(as in Freedom) and secure alternative for Skype
+                \item \textit{''We don't want to be the next secure chatting program, we want to be the next secure chatting program that people actually use.''} - Someone on IRC
+                \item Current secure chat programs aren't easy to use, at least not for \sout{our parents and grandparents} normal people
+            \end{itemize}
+        \end{block}
+    \end{frame}
+
+    \section{Features}
+    \subsection{}
+    \begin{frame}
+        \frametitle{Completed}
+        \begin{block}{Completed}
+            \begin{itemize}
+                \item Text messaging
+                \item Groupchats
+				\item File sending
+                \item Audio/Video (will be encrypted soon, almost ready to merge as of 23/12/2013)
+                \item Several clients for GNU/Linux, OSX and Windows, Qt, GTK, ncurses
+                \item PyTox, the Python binding for Tox
+            \end{itemize}
+        \end{block}
+    \end{frame}
+    \subsection{}
+    \begin{frame}
+        \frametitle{Planned and in Progress}
+        \begin{block}{Planned and in Progress}
+            \begin{itemize}
+                \item Better NAT support (sometimes symmetric NATs are problematic)
+                \item Implement A/V in actual clients, not just as an API
+                \item jToxcore, the Java binding for Tox
+                \item Android client (depends on jToxcore)
+            \end{itemize}
+        \end{block}
+    \end{frame}
+    \section{The technical stuff}
+    
+    \subsection{}
+    \begin{frame}
+        \frametitle{Architecture}
+        \begin{block}{Architecture}
+            \begin{itemize}
+                \item Tox is only a library, everyone can make their own client
+                \item GPLv3, so clients must also be licensed under the GPL
+                \item Bindings to other languages are partially available (or you can make one yourself)
+            \end{itemize}
+        \end{block}
+    \end{frame}
+    \subsection{}
+    \begin{frame}
+        \frametitle{Crypto}
+        \begin{block}{Cryptography}
+            \begin{itemize}
+                \item We are building upon existing cryptography, not inventing our own
+                \item We use libsodium, which is a portable fork of NaCl(Salt)
+                \item Public/Private-Key based, public keys are UserIDs
+                \item crypto\_box: \textit{curve25519xsalsa20poly1305}
+                \begin{itemize}
+                	\item curve25519 for Key exchange
+                    \item xsalsa20 for encryption
+                    \item poly1305 for message authentication
+                \end{itemize}
+
+            \end{itemize}
+        \end{block}
+    \end{frame}
+
+    \subsection{}
+    \begin{frame}
+        \frametitle{Network}
+        \begin{block}{Network Architecture}
+                \begin{itemize}
+                \item Peer-to-Peer chatting, no central servers
+                \item Use UDP for connections
+                \begin{itemize}
+                    \item UDP was the obvious choice for P2P
+                    \item 'Lossless UDP' for reliability in messaging
+                    \item UDP hole-punching for getting through NATs
+                \end{itemize}
+            \end{itemize}
+        \end{block}
+    \end{frame}
+    \begin{frame}
+        \frametitle{DHT}
+        \begin{block}{DHT Design}
+            \begin{itemize}
+                \item Use a DHT to store peer information
+                \item Since public keys are IDs, map a public key to an IP-Address
+                \item Every client stores the mathematically closest nodes by XORing public keys
+                \item Since there are no trackers like in Bittorrent, use Bootstrap nodes for initial login
+                \item Bootstrap nodes are clients that don't do messaging, only DHT work, but any client can serve as a bootstrap node
+            \end{itemize}
+        \end{block}
+    \end{frame}
+    
+    \subsection{}
+    \begin{frame}
+        \frametitle{Problems}
+        \begin{block}{Problems}
+            \begin{itemize}
+                \item An attacker that controls a large portion of DHT nodes can easily log the social graph (solution is on the way, draft not done at time of writing)
+                \item Friend request spam (solved)
+            \end{itemize}
+        \end{block}
+        \begin{block}{Solution?}
+        	\begin{itemize}
+        	\item \url{https://github.com/irungentoo/ProjectTox-Core/blob/master/docs/Prevent_Tracking.txt}
+            \item Problem: This is new, I have not read it yet!
+        	\end{itemize}
+        \end{block}
+    \end{frame}
+    
+    \section{Contribute}
+        \subsection{}
+        \begin{frame}
+            \frametitle{GitHub}
+            \begin{block}{GitHub}
+                \begin{itemize}
+                    \item We're on GitHub!
+                    \item The core is at \url{https://github.com/irungentoo/ProjectTox-Core/}
+                    \item The subprojects are hosted in the Tox Organization at \url{https://github.com/Tox/}
+                \end{itemize}
+            \end{block}
+        \end{frame}
+        
+        \subsection{}
+        \begin{frame}
+            \frametitle{Questions?}
+            \begin{block}{Getting in touch}
+            Most of our communication happens in the channels \#tox-dev and \#tox on Freenode IRC
+            \end{block}
+        \end{frame}
+        
+\end{document}
