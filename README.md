@@ -1,4 +1,3 @@
-tox-slides
-==========
+# Events
 
-Repository to hold slides for tox presentations at events
+Repository to hold slides and other files related to Tox events.

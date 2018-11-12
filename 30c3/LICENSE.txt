@@ -1,0 +1,14 @@
+The tox slides are licensed under CC-BY-NC-SA.
+
+This means you can share and adapt these slides under the following terms:
+
+Attribution — You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use. In this case, you must attribute your derivative work to "The Tox Project" and include a link to this GitHub Repository: https://github.com/Tox/tox-slides/ or the project website https://tox.im. This should be visible in the compiled pdf output of your presentation.
+
+NonCommercial — You may not use the material for commercial purposes.
+
+ShareAlike — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.
+
+No additional restrictions — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.
+
+
+This is a human-readable summary of (and not a substitute for) the license. The full license text is available here: http://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
